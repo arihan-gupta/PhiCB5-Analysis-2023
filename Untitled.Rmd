@@ -17,6 +17,14 @@ When you click the **Knit** button a document will be generated that includes bo
 
 ```{r cars}
 print("hello world")
+matrix <- read.csv("/Users/arihangupta/Downloads/PhiCB5-Analysis-2023/20230510_LZ22332_500nM_induced_3hour_026.txt")
+numCols <- ncol(matrix)
+par(mfrow = c(numCols, 1))
+for (i in 1:numCols)
+{
+  columnData <- matrix[,i]
+  hist(columnData, main = paste("histogram of column", i), xlab = "value", col = "lightblue", breaks = 40)
+}
 ```
 
 ## Including Plots
