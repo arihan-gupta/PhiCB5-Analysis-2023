@@ -22,10 +22,32 @@ numCols <- ncol(matrix)
 for (i in 1:numCols)
 {
   columnData <- matrix[,i]
-  hist(columnData, main = paste("histogram of column", i), xlab = "value", col = "lightblue", breaks = 40)
+  
 }
 ```
+```{r}
+# Install and load the 'readr' package for reading CSV files
+install.packages("readr")
+library(readr)
 
+# Set the file path to your CSV file
+file_path <- "/Users/arihangupta/Downloads/PhiCB5-Analysis-2023/20230510_LZ22332_500nM_induced_3hour_026.txt"
+
+# Import the CSV file into a data frame named 'data'
+data <- read_csv(file_path, col_types = cols(
+  totInt = col_double(),
+  cellArea = col_double(),
+  cellnum = col_double(),
+  bkgrdInt = col_double(),
+  frame = col_factor(),
+  cond = col_factor(),
+  time = col_time(format = "%M:%S"),
+  strain = col_factor()
+))
+
+# Display the imported data frame
+print(data)
+```
 ## Including Plots
 
 You can also embed plots, for example:
