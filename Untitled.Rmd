@@ -19,6 +19,7 @@ install.packages(c(
   "stars", "tidygraph", "tidyr", "wesanderson", repos='http://cran.us.r-project.org'
 ))
 library(readr)
+library(ggplot2)
 ```
 
 ## R Markdown
@@ -34,9 +35,11 @@ dataFinal <- dataFinal[, -1]
 dataFinal$strain <- as.factor(dataFinal$strain)
 dataFinal$cond <- as.factor(dataFinal$cond)
 dataFinal <- cbind(dataFinal, avgInt = dataFinal[,1]/dataFinal[,2])
-dataFinal <- cbind(dataFinal, id = paste(toString(dataFinal[, 7]), toString(dataFinal[, 8]), toString(dataFinal[, 9])))
+id <- paste(dataFinal[,7], "_",dataFinal[, 6], "_" ,dataFinal[,8], sep = "")
+dataFinal <- cbind(dataFinal, id)
 new_order <- c("totInt", "cellArea", "avgInt", "cellnum", "bkgrdInt", "frame", "cond", "time", "strain", "id")
 dataFinal <- dataFinal[ ,new_order]
+dataFinal$id <- as.factor(dataFinal$id)
 numCols <- ncol(dataFinal)
 for (i in 1:5)
 {
@@ -69,7 +72,7 @@ print(data)
 ```
 
 ```{r}
-p1 <- ggplot(data = dataFinal, mapping = aes(x= avgInt)) + geom_histogram() + facet_wrap(~cond)
+p1 <- ggplot(data = dataFinal, mapping = aes(x= avgInt)) + geom_histogram() + facet_wrap(~id)
 p1
 ```
 ## Including Plots
